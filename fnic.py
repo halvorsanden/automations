@@ -30,6 +30,7 @@ extra = set(letters).difference(alphabet)
 missing = list(missing)
 extra = list(extra)
 
+print(path)
 if missing:
     print("There's room for:")
     print(missing)
