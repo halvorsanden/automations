@@ -1,6 +1,7 @@
 import os
+from tkinter.filedialog import askdirectory
 
-path = 'd:\\test\\'
+path = askdirectory()
 
 files = []  # defines list, empty
 ignored = 'Thumbs.db'
@@ -10,7 +11,8 @@ for r, d, f in os.walk(path):
         files.append(file)  # adds every filename (f) to the list
 
 filesclean = files[:]
-filesclean.remove(ignored)
+if ignored in filesclean:
+    filesclean.remove(ignored)
 
 letters = []  # new list
 for f in filesclean:  # for every filename
