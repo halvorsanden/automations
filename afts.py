@@ -41,10 +41,23 @@ with open(inPath, "r") as file:
     # declare the read file as a variable
     filedata = file.read()
 
-# Replace string
-filedata_new = re.sub(searchRegex, fileStamp, filedata, , flags = re.I)
+# check if there is something matching the js/css file in the html
+searchName = re.search(searchRegex, filedata)
 
-# write file again
-with open(inPath, "w") as file:
-    file.write(filedata_new)
+print(searchName)
+fileStampOld = searchName.group(0)
+print(fileStampOld)
 
+if fileStamp != fileStampOld:
+
+    # Replace string
+    filedata_new = re.sub(searchRegex, fileStamp, filedata, flags = re.I)
+
+    # write file again
+    with open(inPath, "w") as file:
+        file.write(filedata_new)
+
+    print(fileName + fileExtension + " updated")
+
+else:
+    print("Nothing to update")
