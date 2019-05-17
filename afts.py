@@ -29,7 +29,7 @@ fileName = ntpath.basename(fileName)
 print(fileName)
 print(fileExtension)
 
-searchRegex = fileName + "\\" + fileExtension + "\?v\=" + "\d+"
+searchRegex = fileName + fileExtension + r"\?v\=\d+"
 
 print(searchRegex)
 
