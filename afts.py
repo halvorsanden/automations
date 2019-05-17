@@ -45,19 +45,21 @@ with open(inPath, "r") as file:
 searchName = re.search(searchRegex, filedata)
 
 print(searchName)
-fileStampOld = searchName.group(0)
-print(fileStampOld)
+# the check is currently not working as a stopper
+if searchName.group(0):
+    fileStampOld = searchName.group(0)
+    print(fileStampOld)
 
-if fileStamp != fileStampOld:
+    if fileStamp != fileStampOld:
 
-    # Replace string
-    filedata_new = re.sub(searchRegex, fileStamp, filedata, flags = re.I)
+        # Replace string
+        filedata_new = re.sub(searchRegex, fileStamp, filedata, flags = re.I)
 
-    # write file again
-    with open(inPath, "w") as file:
-        file.write(filedata_new)
+        # write file again
+        with open(inPath, "w") as file:
+            file.write(filedata_new)
 
-    print(fileName + fileExtension + " updated")
+        print(fileName + fileExtension + " updated")
 
-else:
-    print("Nothing to update")
+    else:
+        print("Nothing to update")
