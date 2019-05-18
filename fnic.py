@@ -2,33 +2,34 @@
 
 import os
 from tkinter.filedialog import askdirectory
+from fnicconfig import alphabet
 
 path = askdirectory()
 
-files = []  # defines list, empty
+files = []
 ignored = 'Thumbs.db'
 # r=root, d=directories, f = files
 for r, d, f in os.walk(path):
     for file in f:
-        files.append(file)  # adds every filename (f) to the list
+        # add every filename (f) to the list
+        files.append(file)
 
 filesclean = files[:]
 if ignored in filesclean:
     filesclean.remove(ignored)
 
-letters = []  # new list
-for f in filesclean:  # for every filename
-    letters.append(f[:1])  # add the first letter to the new list
+letters = []
+for f in filesclean:
+    # add the first letter to the new list
+    letters.append(f[:1])
 
-letters = list(dict.fromkeys(letters))  # removes duplicates from new list
-
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-            'u', 'v', 'w', 'x', 'y', 'z', 'æ', 'ø', 'å']
+# remove duplicates from new list
+letters = list(dict.fromkeys(letters))
 
 # make sets with comparisons
 missing = set(alphabet).difference(letters)
 extra = set(letters).difference(alphabet)
-# convert them to lists - just because
+# convert sets to lists
 missing = list(missing)
 extra = list(extra)
 
