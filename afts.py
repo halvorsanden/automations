@@ -20,23 +20,23 @@ for linkedFile in linkedFiles:
     # define regexpattern
     fileStampRegex = fileNameFull + r"\?v\=\d+"
 
-    # html file
-    fetcherFile = fetcherFiles[0]
-    # open/read in file
-    with open(fetcherFile, "r") as file:
-        filedata = file.read()
-    # check if there is a match
-    searchName = re.search(fileStampRegex, filedata)
+    for fetcherFile in fetcherFiles:
+        # open/read in file
+        with open(fetcherFile, "r") as file:
+            filedata = file.read()
+        # check if there is a match
+        searchName = re.search(fileStampRegex, filedata)
 
-    fileStampOld = searchName.group(0)
+        if searchName:
+            fileStampOld = searchName.group(0)
 
-    if fileStamp != fileStampOld:
-        # Replace string
-        filedataChanged = re.sub(fileStampRegex, fileStamp, filedata, flags = re.I)
-        # write file again
-        with open(fetcherFile, "w") as file:
-            file.write(filedataChanged)
-        print(fileNameFull + " updated")
+            if fileStamp != fileStampOld:
+                # replace file stamp string
+                filedataChanged = re.sub(fileStampRegex, fileStamp, filedata, flags = re.I)
+                # write file again
+                with open(fetcherFile, "w") as file:
+                    file.write(filedataChanged)
+                print(fileNameFull + " updated")
 
-    else:
-        print(fileNameFull + " not changed")
+            else:
+                print(fileNameFull + " not changed")
