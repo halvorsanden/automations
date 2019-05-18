@@ -1,5 +1,11 @@
 # autofiletimestamper
 
+# auto update timestamps of linked files
+# place script and config in project folder
+# add file paths in config
+# append the script to your build script command:
+# && python afts.py
+
 import os
 import stat
 import time
