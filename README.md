@@ -1,6 +1,5 @@
-# automations
-Automation tools and experiments
+# Automation tools and experiments
 ## Filenameindexchecker (fnic)
-Checks all filenames in a selected folder to see if the prefix letters from the config array is used. Reports unused prefixes and extra prefixes.
+Checks if prefixes in a given array is used in a selected folder. Can be adapted to any prefix size. Reports unused prefixes and prefixes not in array.
 ## Autofilestamper (afts)
-Auto updates timestamps of linked files in web projects.
+Auto updates timestamps of linked files in web projects. Can be adapted to use folders and filetypes instead of specific filenames.
