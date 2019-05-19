@@ -15,10 +15,10 @@ from aftsconfig import linkedFiles, fetcherFiles
 
 for linkedFile in linkedFiles:
     # creation time in seconds since epoch
-    creationTimeEpoch = os.path.getctime(linkedFile)
+    modificTimeEpoch = os.path.getmtime(linkedFile)
     # convert time since epoch to readable format
     creationTime = time.strftime(
-        '%Y%m%d%H%M', time.localtime(creationTimeEpoch))
+        '%Y%m%d%H%M', time.localtime(modificTimeEpoch))
     # remove path from filename
     fileNameFull = ntpath.basename(linkedFile)
     # join filename and creation time
