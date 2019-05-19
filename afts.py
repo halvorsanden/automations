@@ -28,7 +28,7 @@ for linkedFile in linkedFiles:
 
     for fetcherFile in fetcherFiles:
         # open/read in file
-        with open(fetcherFile, "r") as file:
+        with open(fetcherFile, "r", encoding="utf8") as file:
             filedata = file.read()
         # check if there is a match
         searchName = re.search(fileStampRegex, filedata)
@@ -40,7 +40,7 @@ for linkedFile in linkedFiles:
                 # replace file stamp string
                 filedataChanged = re.sub(fileStampRegex, fileStamp, filedata, flags = re.I)
                 # write file again
-                with open(fetcherFile, "w") as file:
+                with open(fetcherFile, "w", encoding="utf8") as file:
                     file.write(filedataChanged)
                 print(fileNameFull + " updated")
 
