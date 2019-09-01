@@ -10,6 +10,7 @@ from tkinter.filedialog import askdirectory, askopenfilename
 import ntpath
 import re
 import shutil
+import pathlib
 
 playlist = askopenfilename()
 parentPath = askdirectory()
@@ -47,15 +48,18 @@ for line in dataLines:
 print(tracks)
 
 changedTracks = []
-
+missing = []
 for index, line in enumerate(tracks, 1):
-    # get track name from line
-    track = ntpath.basename(line)
-    # setup new track name and location
-    movedTrack = f"{newLocation}\\{index} {track}"
-    # rename and move track
-    shutil.move(line, movedTrack)
-    changedTracks.append(movedTrack)
+    if pathlib.Path(line).exists():
+        # get track name from line
+        track = ntpath.basename(line)
+        # setup new track name and location
+        movedTrack = f"{newLocation}\\{index} {track}"
+        # rename and move track
+        shutil.move(line, movedTrack)
+        changedTracks.append(movedTrack)
+    else:
+        missing.append(line)
 
 print(changedTracks)
 
@@ -69,17 +73,15 @@ print(changedTracks)
 # with open(playlist, "w", encoding="utf8") as file:
 #     filedataUpdated = file.write()
 
-# missing = []
-# # add missing files to missing files array
-# # number of files missing
-# missingnum = len(missing)
+# number of files missing
+missingnum = len(missing)
 
-# # number of files sucessfully processed
-# filenum = len(files)
+# number of files sucessfully processed
+filenum = len(changedTracks)
 
-# print(filenum + "files processed")
-# if missing:
-#     print(missingnum + " files can't be found:")
-#     print(missing)
-# else:
-#     print("No missing files.")
+print(str(filenum) + " processed")
+if missing:
+    print(str(missingnum) + " can't be found:")
+    print(missing)
+else:
+    print("No missing files.")
