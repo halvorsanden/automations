@@ -1,7 +1,6 @@
 # playlistmoversorter
 
-# default mode copies the files
-# run with parameter -m to move files
+# no dry runs at the moment, be sure to have backups
 # first dialogue asks for playlist
 # second dialogue for parent output folder
 
