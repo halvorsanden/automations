@@ -42,8 +42,10 @@ for index, line in enumerate(tracks, 1):
     if Path(line).exists():
         # get track name from line
         track = ntpath.basename(line)
+        # change index to string and add leading zeros
+        trackNum = f"{index}".zfill(3)
         # setup new track name and location
-        movedTrack = Path(f"{newLocation}/{index} {track}")
+        movedTrack = Path(f"{newLocation}/{trackNum} {track}")
         print(movedTrack)
         # rename and move track
         shutil.move(line, movedTrack)
@@ -51,11 +53,9 @@ for index, line in enumerate(tracks, 1):
     else:
         missing.append(line)
 
-for index, line in enumerate(originLines):
+for lineIndex, line in enumerate(originLines):
     isTrack = re.match(trackRegex, line)
     if isTrack:
-        # set a variable with the index of that line
-        lineIndex = index
         # get the filename from that line
         originTrack = ntpath.basename(line)
         for newLine in changedTracks:
