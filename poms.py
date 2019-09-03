@@ -45,7 +45,7 @@ for index, line in enumerate(tracks, 1):
         # setup new track name and location
         movedTrack = f"{newLocation}\\{index} {track}"
         # rename and move track
-        #shutil.move(line, movedTrack)
+        shutil.move(line, movedTrack)
         changedTracks.append(movedTrack)
     else:
         missing.append(line)
