@@ -10,19 +10,19 @@ from tkinter.filedialog import askdirectory, askopenfilename
 import ntpath
 import re
 import shutil
-import pathlib
+from pathlib import Path
 
 playlist = askopenfilename()
 parentPath = askdirectory()
 playlistName = ntpath.basename(playlist)
 newFolderName = os.path.splitext(playlistName)[0]
-newLocation = parentPath + "\\" + newFolderName
+newLocation = f"{parentPath}\\{newFolderName}"
 
 if not os.path.exists(newLocation):
     os.makedirs(newLocation)
-    print("New folder made: " + newLocation)
+    print(f"New folder made: {newLocation}")
 else:
-    print("Folder already exists: " + newLocation)
+    print(f"Folder already exists: {newLocation}")
 
 with open(playlist, "r", encoding="utf8") as file:
     originLines = file.read().splitlines()
@@ -39,44 +39,45 @@ for line in originLines:
 changedTracks = []
 missing = []
 for index, line in enumerate(tracks, 1):
-    if pathlib.Path(line).exists():
+    if Path(line).exists():
         # get track name from line
         track = ntpath.basename(line)
         # setup new track name and location
-        movedTrack = f"{newLocation}\\{index} {track}"
+        movedTrack = Path(f"{newLocation}/{index} {track}")
+        print(movedTrack)
         # rename and move track
         shutil.move(line, movedTrack)
         changedTracks.append(movedTrack)
     else:
         missing.append(line)
 
-    for index, line in enumerate(originLines):
-        isTrack = re.match(trackRegex, line)
-        if isTrack:
-            # set a variable with the index of that line
-            lineIndex = index
-            # get the filename from that line
-            originTrack = ntpath.basename(line)
-            for newLine in changedTracks:
-                newTrack = ntpath.basename(newLine).split(maxsplit=1)
-                cleanNewTrack = newTrack[1]
-                # run new filename against the filename of the original file
-                if originTrack == cleanNewTrack:
-                    # remove original line at lineIndex
-                    originLines.remove(line)
-                    # insert newLine at lineIndex
-                    originLines.insert(lineIndex, newLine)
+for index, line in enumerate(originLines):
+    isTrack = re.match(trackRegex, line)
+    if isTrack:
+        # set a variable with the index of that line
+        lineIndex = index
+        # get the filename from that line
+        originTrack = ntpath.basename(line)
+        for newLine in changedTracks:
+            newTrack = ntpath.basename(newLine).split(maxsplit=1)
+            cleanNewTrack = newTrack[1]
+            # run new filename against the filename of the original file
+            if originTrack == cleanNewTrack:
+                # remove original line at lineIndex
+                originLines.remove(line)
+                # insert newLine at lineIndex
+                originLines.insert(lineIndex, f"{newLine}")
 
 # update playlist with new line content and empty last line
 with open(playlist, "w", encoding="utf8") as file:
-    file.write('\n'.join(originLines) + '\n')
+    file.write("\n".join(originLines) + "\n")
 
 missingnum = len(missing)
 filenum = len(changedTracks)
 
-print(str(filenum) + " processed")
+print(f"{filenum} processed")
 if missing:
-    print(str(missingnum) + " can't be found:")
+    print(f"{missingnum} can't be found:")
     print(missing)
 else:
     print("No missing files.")
