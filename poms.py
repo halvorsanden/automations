@@ -19,7 +19,7 @@ if playlist:
     if parentPath:
         playlistName = ntpath.basename(playlist)
         newFolderName = os.path.splitext(playlistName)[0]
-        newLocation = f"{parentPath}\\{newFolderName}"
+        newLocation = Path(f"{parentPath}/{newFolderName}")
 
         if not os.path.exists(newLocation):
             os.makedirs(newLocation)
@@ -86,7 +86,7 @@ if playlist:
             print("No missing files.")
 
     else:
-        print("Missing parent folder location, no changes made")
+        print("Missing parent folder location, no changes made.")
 
 else:
-    print("No playlist set, no changes made")
+    print("No playlist set, no changes made.")
