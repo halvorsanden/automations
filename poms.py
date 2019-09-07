@@ -1,6 +1,7 @@
 # playlistmoversorter
 
-# no dry runs at the moment, be sure to have backups
+# be sure to have backups before starting
+# manual dry run: comment line 26, 55, 76 and 77
 # first dialogue asks for playlist
 # second dialogue for parent output folder
 
