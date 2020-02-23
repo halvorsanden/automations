@@ -29,9 +29,9 @@ letters = list(dict.fromkeys(letters))
 # make sets with comparisons
 missing = set(alphabet).difference(letters)
 extra = set(letters).difference(alphabet)
-# convert sets to lists
-missing = list(missing)
-extra = list(extra)
+# convert sets to alphabetised lists
+missing = sorted(missing)
+extra = sorted(extra)
 
 print(path)
 if missing:
